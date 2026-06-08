@@ -60,9 +60,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh '''
-                        docker build \
-                        -t ${IMAGE}:${IMAGE_TAG} \
-                        // --no-cache .
+                        docker buildx build -t ${IMAGE}:${IMAGE_TAG} .
                     '''
                 }
             }
