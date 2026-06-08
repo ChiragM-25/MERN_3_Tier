@@ -37,16 +37,16 @@ pipeline {
         //     }
         // }
 
-        stage('Install & Build') {
-            steps {
-                dir('frontend') {
-                    sh '''
-                        npm install
-                        npm run build
-                    '''
-                }
-            }
-        }
+        // stage('Install & Build') {
+        //     steps {
+        //         dir('frontend') {
+        //             sh '''
+        //                 npm install
+        //                 npm run build
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('SonarQube Analysis') {
             steps {
@@ -58,8 +58,12 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                script {
-                    image = docker.build("${IMAGE}:${IMAGE_TAG}", "--no-cache .")
+                dir('frontend') {
+                    sh '''
+                        docker build \
+                        -t ${IMAGE}:${IMAGE_TAG} \
+                        --no-cache .
+                    '''
                 }
             }
         }
