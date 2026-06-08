@@ -62,7 +62,7 @@ pipeline {
                     sh '''
                         docker build \
                         -t ${IMAGE}:${IMAGE_TAG} \
-                        --no-cache .
+                        // --no-cache .
                     '''
                 }
             }
