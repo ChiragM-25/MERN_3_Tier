@@ -60,7 +60,9 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh '''
-                        docker buildx build -t ${IMAGE}:${IMAGE_TAG} .
+                        docker build \
+                        -t ${IMAGE}:${IMAGE_TAG} \
+                        .
                     '''
                 }
             }
