@@ -20,7 +20,7 @@ pipeline {
         GITOPS_BRANCH   = "main"
         GITOPS_VALUES   = "environments/dev/frontend.yaml"
 
-        SONAR_HOST_URL  = "http://15.206.203.59/"
+        SONAR_HOST_URL  = "http://13.233.116.216/"
     }
 
     options {
@@ -39,10 +39,12 @@ pipeline {
 
         stage('Install & Build') {
             steps {
-                sh '''
-                    npm install
-                    npm run build
-                '''
+                dir('frontend') {
+                    sh '''
+                        npm install
+                        npm run build
+                    '''
+                }
             }
         }
 
