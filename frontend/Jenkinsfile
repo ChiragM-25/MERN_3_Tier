@@ -51,18 +51,18 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-frontend', variable: 'SONAR_TOKEN')]) {
-                    sh "cd frontend && sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}"
+                    sh "cd frontend && sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}"
                 }
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //         script {
-        //             image = docker.build("${IMAGE}:${IMAGE_TAG}", "--no-cache .")
-        //         }
-        //     }
-        // }
+        stage('Docker Build') {
+            steps {
+                script {
+                    image = docker.build("${IMAGE}:${IMAGE_TAG}", "--no-cache .")
+                }
+            }
+        }
 
         // stage('Trivy Scan') {
         //     steps {
@@ -71,15 +71,15 @@ pipeline {
         //     }
         // }
 
-        // stage('Push Image') {
-        //     steps {
-        //         sh '''
-        //             aws ecr get-login-password --region ${AWS_REGION} \
-        //               | docker login --username AWS --password-stdin ${REGISTRY}
-        //             docker push ${IMAGE}:${IMAGE_TAG}
-        //         '''
-        //     }
-        // }
+        stage('Push Image') {
+            steps {
+                sh '''
+                    aws ecr get-login-password --region ${AWS_REGION} \
+                      | docker login --username AWS --password-stdin ${REGISTRY}
+                    docker push ${IMAGE}:${IMAGE_TAG}
+                '''
+            }
+        }
 
         // stage('Promote to dev (GitOps)') {
         //     steps {
