@@ -85,6 +85,7 @@ pipeline {
             }
         }
 
+
         stage('Update ECR Secret') {
             steps {
                 withCredentials([file(credentialsId: 'kubeconfig-file', variable: 'KUBECONFIG')]) {
@@ -97,6 +98,26 @@ pipeline {
                       --docker-password="$TOKEN" \
                       -n frontend \
                       --dry-run=client -o yaml | kubectl apply -f -
+                    '''
+                }
+            }
+        }
+
+        stage('Debug Cluster') {
+            steps {
+                withCredentials([
+                    file(credentialsId: 'kubeconfig-file',
+                    variable: 'KUBECONFIG')
+                ]) {
+                    sh '''
+                        echo "===== CONTEXT ====="
+                        kubectl config current-context
+        
+                        echo "===== NAMESPACE ====="
+                        kubectl get ns frontend
+        
+                        echo "===== SECRETS ====="
+                        kubectl get secrets -n frontend
                     '''
                 }
             }
