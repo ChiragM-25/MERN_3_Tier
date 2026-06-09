@@ -20,7 +20,7 @@ pipeline {
         GITOPS_BRANCH   = "main"
         GITOPS_VALUES   = "environments/dev/frontend.yaml"
 
-        SONAR_HOST_URL  = "http://13.233.116.216/"
+        SONAR_HOST_URL  = "http://13.233.156.157/"
     }
 
     options {
