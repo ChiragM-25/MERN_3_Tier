@@ -16,7 +16,11 @@ image:
 #   email: itdefined.org@gmail.com
 
 imagePullSecret:
+  create: true
   name: ecr-secret
+  registry: 464505731561.dkr.ecr.ap-south-1.amazonaws.com
+  username: AWS
+  password: ""
 
 
 service:
