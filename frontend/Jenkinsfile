@@ -103,25 +103,25 @@ pipeline {
             }
         }
 
-        stage('Debug Cluster') {
-            steps {
-                withCredentials([
-                    file(credentialsId: 'kubeconfig-file',
-                    variable: 'KUBECONFIG')
-                ]) {
-                    sh '''
-                        echo "===== CONTEXT ====="
-                        kubectl config current-context
+        // stage('Debug Cluster') {
+        //     steps {
+        //         withCredentials([
+        //             file(credentialsId: 'kubeconfig-file',
+        //             variable: 'KUBECONFIG')
+        //         ]) {
+        //             sh '''
+        //                 echo "===== CONTEXT ====="
+        //                 kubectl config current-context
         
-                        echo "===== NAMESPACE ====="
-                        kubectl get ns frontend
+        //                 echo "===== NAMESPACE ====="
+        //                 kubectl get ns frontend
         
-                        echo "===== SECRETS ====="
-                        kubectl get secrets -n frontend
-                    '''
-                }
-            }
-        }
+        //                 echo "===== SECRETS ====="
+        //                 kubectl get secrets -n frontend
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('Helm Deploy') {
             steps {
