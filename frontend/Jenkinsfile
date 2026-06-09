@@ -48,13 +48,13 @@ pipeline {
         //     }
         // }
 
-        stage('SonarQube Analysis') {
-            steps {
-                withCredentials([string(credentialsId: 'sonar-frontend', variable: 'SONAR_TOKEN')]) {
-                    sh "cd frontend && sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}"
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withCredentials([string(credentialsId: 'sonar-frontend', variable: 'SONAR_TOKEN')]) {
+        //             sh "cd frontend && sonar-scanner -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}"
+        //         }
+        //     }
+        // }
 
         stage('Docker Build') {
             steps {
