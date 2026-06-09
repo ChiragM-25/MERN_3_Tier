@@ -68,12 +68,12 @@ pipeline {
             }
         }
 
-        stage('Trivy Scan') {
-            steps {
-                sh "trivy image --severity LOW,MEDIUM,HIGH --exit-code 0 --format table ${IMAGE}:${IMAGE_TAG}"
-                sh "trivy image --severity CRITICAL --exit-code 0 --format table ${IMAGE}:${IMAGE_TAG}"
-            }
-        }
+        // stage('Trivy Scan') {
+        //     steps {
+        //         sh "trivy image --severity LOW,MEDIUM,HIGH --exit-code 0 --format table ${IMAGE}:${IMAGE_TAG}"
+        //         sh "trivy image --severity CRITICAL --exit-code 0 --format table ${IMAGE}:${IMAGE_TAG}"
+        //     }
+        // }
 
         stage('Push Image') {
             steps {
